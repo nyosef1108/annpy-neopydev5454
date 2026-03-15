@@ -54,7 +54,7 @@ y = np.array([0, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0, 1])
 
 # 3. Initialize the model
 # input_size=4 (features), hidden_layer_size=10 (neurons)
-model = ANN(input_size=4, hidden_layer_size=10)
+model = ANN(hidden_layer_size=10, input_size=4)
 
 # 4. Train the model
 # X: The training features matrix
