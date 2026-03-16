@@ -90,5 +90,5 @@ Distributed under the **MIT License**. See the `LICENSE` file for more informati
 
 ---
 
-Created with ❤️ by [Nehorai Yosef](mailto:neopydev5454@gmail.com)
+Created with ❤️ by [Nehorai Yosef](https://github.com/nyosef1108) | [Contact](mailto:neopydev5454@gmail.com)
 
