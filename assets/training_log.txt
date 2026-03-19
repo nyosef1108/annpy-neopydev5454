@@ -1,0 +1,17 @@
+Epoch 0, Loss: 0.425661
+Epoch 100, Loss: 0.069730
+Epoch 200, Loss: 0.018577
+Epoch 300, Loss: 0.009963
+Epoch 400, Loss: 0.006507
+Epoch 500, Loss: 0.004691
+Epoch 600, Loss: 0.003586
+Epoch 700, Loss: 0.002854
+Epoch 800, Loss: 0.002340
+Epoch 900, Loss: 0.001963
+Epoch 1000, Loss: 0.001677
+Epoch 1100, Loss: 0.001455
+Epoch 1200, Loss: 0.001279
+Epoch 1300, Loss: 0.001136
+Epoch 1400, Loss: 0.001018
+
+Training finished. Restoring best weights found (Best Loss: 0.000921)
