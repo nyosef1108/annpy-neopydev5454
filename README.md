@@ -1,5 +1,6 @@
 # Annpy 🧠
 
+[![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-blue?logo=github)](https://github.com/nyosef1108/annpy-neopydev5454)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![NumPy](https://img.shields.io/badge/dependency-NumPy-blueviolet.svg)](https://numpy.org/)
@@ -7,7 +8,7 @@
 **Annpy** is a lightweight, efficient, and fully transparent Artificial Neural Network (ANN) implementation built from scratch using NumPy. 
 
 While many frameworks are "black boxes," **Annpy** is designed to be customizable and clear, making it perfect for educational purposes, lightweight integrations, and fast prototyping.
-
+ 
 ---
 
 ## ✨ Key Features
@@ -15,10 +16,10 @@ While many frameworks are "black boxes," **Annpy** is designed to be customizabl
 * **🎯 Total Architectural Flexibility:**
     * **Any Input Size:** Configure the network to accept any number of input features—from 2 to 2,000+.
     * **Customizable Hidden Layer:** You define the number of neurons in the hidden layer to perfectly balance learning power and processing speed.
+* **⚡ High Computational Efficiency:** By leveraging optimized NumPy vectorization, **Annpy** executes complex matrix operations with remarkable speed, proving that clean code can be incredibly fast.
 * **🧠 From-Scratch Implementation:** No heavy dependencies like PyTorch or TensorFlow. Just pure Python and NumPy logic.
-* **⚡ Built-in Preprocessing:** Features automated data normalization (scaling to [0, 1]) and shuffling to ensure your model trains effectively out of the box.
+* **📊 Built-in Preprocessing:** Features automated data normalization (scaling to [0, 1]) and shuffling to ensure your model trains effectively out of the box.
 * **🛠️ Developer Friendly:** Clean, documented code that is easy to read, extend, and debug.
-
 ---
 
 ## 🚀 Installation
@@ -70,6 +71,52 @@ prediction = model.predict(new_sample)
 print(f"Prediction: {prediction}")
 
 ```
+
+---
+
+## 🐣 Beginner's Guide: How it Works
+
+If you are new to Neural Networks, here is a simple breakdown of how **Annpy** processes data, using the classic **Iris Flower** dataset:
+
+### 1. The Goal
+Annpy is a mathematical tool designed to **classify** data into two distinct categories.
+* **The Species:** Distinguishing between **⚪ Setosa (0)** and **⚫ Versicolor (1)**.
+* **The Logic:** Let's assign a color/symbol to each classification for clarity:
+  * **⚪ White:** Category **0** (Setosa)
+  * **⚫ Black:** Category **1** (Versicolor)
+
+### 2. The 4 Input Features (The Measurements)
+To identify a flower, we provide the network with **4 specific measurements**. Each measurement is a "Feature" with its own color:
+
+1. 🟢 **Sepal Length:** The length of the outer green leaves.
+2. 🔵 **Sepal Width:** The width of the outer green leaves.
+3. 🔴 **Petal Length:** The length of the inner colorful petals.
+4. 🟡 **Petal Width:** The width of the inner colorful petals.
+
+
+
+### 3. The Learning Phase (Training)
+The network learns the "mathematical fingerprint" of each species by looking at hundreds of labeled examples:
+
+**Example of Labeled Data:**
+* **Sample A (Setosa):** `[🟢5.1, 🔵3.5, 🔴1.4, 🟡0.2]` → **Label: ⚪ 0**
+* **Sample B (Versicolor):** `[🟢7.0, 🔵3.2, 🔴4.7, 🟡1.4]` → **Label: ⚫ 1**
+
+### 4. The Prediction Phase
+Once trained, you give the network 4 new measurements. It processes these values and produces a single output between **0** and **1**.
+
+### 5. Understanding the Results
+The result represents the network's classification. The closer to **0 (White)** or **1 (Black)**, the higher the confidence:
+
+* **High Confidence (Setosa):** Result `0.08` — The network is very sure the flower is **⚪ White / Setosa (0)**.
+* **High Confidence (Versicolor):** Result `0.92` — The network is very sure the flower is **⚫ Black / Versicolor (1)**.
+
+**What does "Uncertainty" look like?**
+When features are "blurry" or sit right on the edge between species:
+* **Uncertain (Leans Setosa):** Result `0.45` — Slightly favors **⚪ White / Setosa (0)**.
+* **Uncertain (Leans Versicolor):** Result `0.55` — Slightly favors **⚫ Black / Versicolor (1)**.
+
+
 
 ---
 
