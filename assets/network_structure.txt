@@ -1,0 +1,47 @@
+============================================================
+             DETAILED NEURAL NETWORK STRUCTURE              
+============================================================
+
+[ LAYER 1: HIDDEN LAYER ]
+Neurons: 10 | Activation: Sigmoid
+------------------------------
+ Neuron 1:
+  - Weights (Incoming): [-0.132, 1.217, 2.227, -4.518]
+  - Bias: 0.700
+ Neuron 2:
+  - Weights (Incoming): [0.262, 1.050, -1.169, -1.387]
+  - Bias: 0.102
+ Neuron 3:
+  - Weights (Incoming): [0.103, 7.618, 1.550, 3.455]
+  - Bias: -0.347
+ Neuron 4:
+  - Weights (Incoming): [0.217, -0.775, 0.918, -1.026]
+  - Bias: 0.101
+ Neuron 5:
+  - Weights (Incoming): [-4.138, 9.272, -1.811, 4.060]
+  - Bias: 0.180
+ Neuron 6:
+  - Weights (Incoming): [1.459, 5.352, 0.782, 2.209]
+  - Bias: -2.393
+ Neuron 7:
+  - Weights (Incoming): [-5.846, 0.584, -1.645, 3.351]
+  - Bias: 1.278
+ Neuron 8:
+  - Weights (Incoming): [-3.042, 0.622, -0.551, -1.289]
+  - Bias: 1.513
+ Neuron 9:
+  - Weights (Incoming): [0.658, 0.788, -3.675, 4.199]
+  - Bias: -0.887
+ Neuron 10:
+  - Weights (Incoming): [-0.049, 0.617, 1.818, 1.363]
+  - Bias: -1.411
+
+------------------------------------------------------------
+[ LAYER 2: OUTPUT LAYER ]
+Neurons: 1 | Activation: Sigmoid
+------------------------------
+ Neuron 1 (Final):
+  - Weights (From Hidden): [0.295, -4.137, 1.310, 4.079, -0.626, 3.544, -4.078, -5.099, 0.658, 3.930]
+  - Bias: -2.023
+============================================================
+
