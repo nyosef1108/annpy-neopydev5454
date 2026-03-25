@@ -94,7 +94,6 @@ To identify a flower, we provide the network with **4 specific measurements**. E
 4. 🟡 **Petal Width:** The width of the inner colorful petals.
 
 
-
 ### 3. The Learning Phase (Training)
 The network learns the "mathematical fingerprint" of each species by looking at hundreds of labeled examples:
 
@@ -102,21 +101,175 @@ The network learns the "mathematical fingerprint" of each species by looking at 
 * **Sample A (Setosa):** `[🟢5.1, 🔵3.5, 🔴1.4, 🟡0.2]` → **Label: ⚪ 0**
 * **Sample B (Versicolor):** `[🟢7.0, 🔵3.2, 🔴4.7, 🟡1.4]` → **Label: ⚫ 1**
 
+### 📋 Dataset Structure (5-Sample List)
+
+To help the model learn, we provide the data in two matching lists. Each item in the **Features** list corresponds directly to the same item in the **Labels** list.
+
+The dataset is split into two synchronized arrays: X (The characteristics we measure) and y (The species we want to predict).
+
+**The Features List (`X`)**
+* **Format:** `[🟢 Sepal L, 🔵 Sepal W, 🔴 Petal L, 🟡 Petal W]`
+* **Sample 1:** `[🟢5.1, 🔵3.5, 🔴1.4, 🟡0.2]`
+* **Sample 2:** `[🟢4.9, 🔵3.0, 🔴1.4, 🟡0.2]`
+* **Sample 3:** `[🟢7.0, 🔵3.2, 🔴4.7, 🟡1.4]`
+* **Sample 4:** `[🟢6.4, 🔵3.2, 🔴4.5, 🟡1.5]`
+* **Sample 5:** `[🟢5.8, 🔵2.7, 🔴4.1, 🟡1.0]`
+
+**The Labels List (`y`)**
+* **Format:** `[Species ID]`
+* **Sample 1:** `⚪ 0`
+* **Sample 2:** `⚪ 0`
+* **Sample 3:** `⚫ 1`
+* **Sample 4:** `⚫ 1`
+* **Sample 5:** `⚫ 1`
+
 ### 4. The Prediction Phase
 Once trained, you give the network 4 new measurements. It processes these values and produces a single output between **0** and **1**.
 
 ### 5. Understanding the Results
 The result represents the network's classification. The closer to **0 (White)** or **1 (Black)**, the higher the confidence:
 
-* **High Confidence (Setosa):** Result `0.08` — The network is very sure the flower is **⚪ White / Setosa (0)**.
-* **High Confidence (Versicolor):** Result `0.92` — The network is very sure the flower is **⚫ Black / Versicolor (1)**.
+* **High Confidence (Setosa):** `PREDICT([🟢5.0, 🔵3.6, 🔴1.4, 🟡0.2])` → **Result: `0.02`** (Very sure it is **⚪ Setosa**)
+* **High Confidence (Versicolor):** `PREDICT([🟢6.7, 🔵3.1, 🔴5.6, 🟡2.4])` → **Result: `0.98`** (Very sure it is **⚫ Versicolor**)
 
 **What does "Uncertainty" look like?**
 When features are "blurry" or sit right on the edge between species:
-* **Uncertain (Leans Setosa):** Result `0.45` — Slightly favors **⚪ White / Setosa (0)**.
-* **Uncertain (Leans Versicolor):** Result `0.55` — Slightly favors **⚫ Black / Versicolor (1)**.
+* **Uncertain (Leans Setosa):** `PREDICT([🟢5.5, 🔵2.5, 🔴3.0, 🟡1.1])` → **Result: `0.42`** (Slightly favors **⚪ Setosa**)
+* **Uncertain (Leans Versicolor):** `PREDICT([🟢6.0, 🔵2.8, 🔴4.2, 🟡1.3])` → **Result: `0.58`** (Slightly favors **⚫ Versicolor**)
+
+---
+## 📐 Mathematical Background & Principles
+
+### 1. Hidden Layer Transformation
+The value of each neuron $j$ in the hidden layer is calculated as follows:
+
+$$h_j = f \left( \bigl( \sum_{i=1}^{n} x_i \cdot w_{i,j} \bigr) + b_j \right)$$
+
+**Definitions:**
+*   $h_j$: The final activation (output) of the $j$-th neuron in the hidden layer.
+*   $i$: Represents the specific input feature.
+*   $n$: Total number of input features ($1 \leq i \leq n$).
+*   $x_i$: The value of feature $i$ in the current input.
+*   $w_{i,j}$: The weight connecting feature $i$ to neuron $j$.
+*   $b_j$: The bias of neuron $j$.
+*   $k$: Total number of neurons in the hidden layer ($1 \leq j \leq k$).
+*   $f$: The Activation Function (Sigmoid).
+
+### 2. Output Layer Calculation ($y_{pred}$)
+After calculating the hidden layer activations, the final prediction of the network is computed:
+
+$$y_{pred} = f \left( \bigl( \sum_{j=1}^{k} h_j \cdot w_{j,out} \bigr) + b_{out} \right)$$
+
+**Definitions:**
+*   $y_{pred}$: The final prediction of the network (between 0 and 1).
+*   $h_j$: The activation value from the $j$-th neuron in the hidden layer.
+*   $w_{j,out}$: The weight connecting hidden neuron $j$ to the output neuron.
+*   $b_{out}$: The bias of the output neuron.
+*   $k$: Total number of neurons in the hidden layer ($1 \leq j \leq k$).
+
+### 3. Measuring Error: Mean Squared Error (MSE)
+To evaluate the network's performance over a set of $m$ samples, we calculate the average squared difference between the true labels and the predictions:
+
+$$Loss = \frac{1}{m} \sum_{i=1}^{m} (y_{true}^{(i)} - y_{pred}^{(i)})^2$$
+
+**Definitions:**
+*   $m$: The total number of samples in the dataset (or batch).
+*   $\sum_{i=1}^{m}$: The sum of errors across all samples from $1$ to $m$.
+*   $y_{true}^{(i)}$: The actual ground truth for sample $i$.
+*   $y_{pred}^{(i)}$: The network's prediction for sample $i$.
+*   $Loss$: The final average error used to guide the optimization process.
+
+### 4. Gradient Descent & Weight Update
+To minimize the $Loss$, we adjust each weight and bias in the direction that reduces the error using the **Chain Rule**.
+
+#### A. The Update Rule:
+We update all weights and biases in the network (both hidden and output layers) using the calculated gradients:
+
+**1. Hidden Layer Parameters ($w_{i,j}$ and $b_j$):**
+
+$$w_{i,j} = w_{i,j} - \eta \cdot \frac{\partial Loss}{\partial w_{i,j}}$$
 
 
+$$b_j = b_j - \eta \cdot \frac{\partial Loss}{\partial b_j}$$
+
+
+**2. Output Layer Parameters ($w_{j,out}$ and $b_{out}$):**
+
+$$w_{j,out} = w_{j,out} - \eta \cdot \frac{\partial Loss}{\partial w_{j,out}}$$
+
+
+$$b_{out} = b_{out} - \eta \cdot \frac{\partial Loss}{\partial b_{out}}$$
+
+#### B. The Derivative (Chain Rule):
+
+To calculate the gradient for each parameter, we break the influence down into the specific components along the path to the final error:
+
+
+**1. Hidden Layer Weight ($\frac{\partial Loss}{\partial w_{i,j}}$):**
+
+$$\frac{\partial Loss}{\partial w_{i,j}} = \frac{\partial Loss}{\partial y_{pred}} \cdot \frac{\partial y_{pred}}{\partial h_j} \cdot \frac{\partial h_j}{\partial w_{i,j}}$$
+
+
+**2. Hidden Layer Bias ($\frac{\partial Loss}{\partial b_j}$):**
+
+$$\frac{\partial Loss}{\partial b_j} = \frac{\partial Loss}{\partial y_{pred}} \cdot \frac{\partial y_{pred}}{\partial h_j} \cdot \frac{\partial h_j}{\partial b_j}$$
+
+
+**3. Output Layer Weight ($\frac{\partial Loss}{\partial w_{j,out}}$):**
+
+$$\frac{\partial Loss}{\partial w_{j,out}} = \frac{\partial Loss}{\partial y_{pred}} \cdot \frac{\partial y_{pred}}{\partial w_{j,out}}$$
+
+
+**4. Output Layer Bias ($\frac{\partial Loss}{\partial b_{out}}$):**
+
+$$\frac{\partial Loss}{\partial b_{out}} = \frac{\partial Loss}{\partial y_{pred}} \cdot \frac{\partial y_{pred}}{\partial b_{out}}$$
+
+
+**Definitions:**
+* **$\eta$ (Eta):** The **Learning Rate** – a small constant (e.g., 0.1) that determines the step size toward the minimum.
+
+#### C. Mathematical Breakdown of the Gradient:
+
+By applying the derivatives to each component of our network, we get:
+
+
+**The Error Gradient:**
+
+$$\frac{\partial Loss}{\partial y_{pred}} = \frac{\partial \left( y_{true} - y_{pred} \right)^2}{\partial y_{pred}} = -2 \cdot \left( y_{true} - y_{pred} \right)$$
+
+
+**The Output Activation (with respect to hidden neurons):**
+
+$$\frac{\partial y_{pred}}{\partial h_j} = \frac{\partial f \left( \left( \sum_{j=1}^{k} h_j \cdot w_{j,out} \right) + b_{out} \right)}{\partial h_j} = f' \left( \left( \sum_{j=1}^{k} h_j \cdot w_{j,out} \right) + b_{out} \right) \cdot w_{j,out}$$
+
+
+**The Hidden Weight Impact:**
+
+$$\frac{\partial h_j}{\partial w_{i,j}} = \frac{\partial f \left( \left( \sum_{i=1}^{n} x_i \cdot w_{i,j} \right) + b_j \right)}{\partial w_{i,j}} = f' \left( \left( \sum_{i=1}^{n} x_i \cdot w_{i,j} \right) + b_j \right) \cdot x_i$$
+
+
+**The Hidden Bias Impact:**
+
+$$\frac{\partial h_j}{\partial b_j} = \frac{\partial f \left( \left( \sum_{i=1}^{n} x_i \cdot w_{i,j} \right) + b_j \right)}{\partial b_j} = f' \left( \left( \sum_{i=1}^{n} x_i \cdot w_{i,j} \right) + b_j \right) \cdot 1$$
+
+
+**The Output Weight Impact:**
+
+$$\frac{\partial y_{pred}}{\partial w_{j,out}} = \frac{\partial f \left( \left( \sum_{j=1}^{k} h_j \cdot w_{j,out} \right) + b_{out} \right)}{\partial w_{j,out}} = f' \left( \left( \sum_{j=1}^{k} h_j \cdot w_{j,out} \right) + b_{out} \right) \cdot h_j$$
+
+
+**The Output Bias Impact:**
+
+$$\frac{\partial y_{pred}}{\partial b_{out}} = \frac{\partial f \left( \left( \sum_{j=1}^{k} h_j \cdot w_{j,out} \right) + b_{out} \right)}{\partial b_{out}} = f' \left( \left( \sum_{j=1}^{k} h_j \cdot w_{j,out} \right) + b_{out} \right) \cdot 1$$
+#### D. The Sigmoid Derivative ($f'$)
+To implement the backpropagation, we need the derivative of our activation function. The Sigmoid function $f(x) = \frac{1}{1 + e^{-x}}$ has a unique and convenient derivative:
+
+
+$$f'(x) = f(x) \cdot (1 - f(x))$$
+
+
+**Why this is useful:**
+Since we already calculated $f(x)$ (the neuron's output) during the **Forward Pass**, calculating the gradient during the **Backward Pass** is computationally efficient—we simply reuse the existing output.
 
 ---
 
