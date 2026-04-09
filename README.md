@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/nyosef1108/annpy-neopydev5454/main/assets/ANNPY%20logo2.png" width="1000" alt="Annpy Logo">
+</p>
+
 # Annpy 🧠
 
 [![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-blue?logo=github)](https://github.com/nyosef1108/annpy-neopydev5454)
